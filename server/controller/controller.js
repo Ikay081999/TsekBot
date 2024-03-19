@@ -97,7 +97,7 @@ exports.requestAgent = (req, res) => {
 exports.checkOngoingRequest = (req, res) => {
     const id = req.session.user.emp_id;
     const sql = "SELECT * FROM request_agent where emp_id = ? AND (status = ? OR status = ?)";
-    con.query(sql, [id, 0, 2], (err, result) => {
+    con.query(sql, [id, 0, 1], (err, result) => {
 
         if (err) return res.json({ Error: "Error Fetching Data in server" });
 
@@ -118,8 +118,8 @@ exports.checkOngoingRequest = (req, res) => {
 
 exports.fetchUserConcerns = (req, res) => {
     const id = req.session.user.emp_id;
-    const sql = "SELECT request_agent.*, concern_category.category_name FROM request_agent INNER JOIN concern_category ON request_agent.category_id = concern_category.category_id where request_agent.emp_id = ? ORDER BY request_agent.created_at DESC";
-    con.query(sql, [id], (err, result) => {
+    const sql = "SELECT request_agent.*, concern_category.category_name FROM request_agent INNER JOIN concern_category ON request_agent.category_id = concern_category.category_id where request_agent.emp_id = ? AND NOT request_agent.archive= ? ORDER BY request_agent.created_at DESC";
+    con.query(sql, [id, 2], (err, result) => {
         if (err) return res.json({ Error: "Error fetching Types of Concerns in server" });
         return res.json(result);
     });

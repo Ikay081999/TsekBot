@@ -29,12 +29,8 @@ const Tsekbot2 = () => {
 
     return (
         <>
-
             <Sidenav />
-
             <section className="home p-10">
-
-
                 {/* 
                 <div class="border-b border-gray-200">
                     <nav class="flex">
@@ -50,13 +46,8 @@ const Tsekbot2 = () => {
                     <div class="hidden" id="nav-contact">Contact Content</div>
                 </div> */}
 
-
-
-
-
                 <div class="flex flex-col md:flex-row">
                     <div class="w-1/3 h-screen p-4 bg-[#DAF0F9] overflow-auto">
-
                         <div>
                             {data.map((dt, index) => {
                                 const startDate = moment(dt.created_at).format('ddd - MMM D, YYYY');
@@ -70,18 +61,17 @@ const Tsekbot2 = () => {
 
                                                 <h6><span className='py-1 px-2 text-xs text-[#2E2E2E] bg-[#D9D9D9] rounded-xl'>{startDate}</span></h6>
                                             </div>
-
-                                            <div className='flex gap-4 py-1 px-2 hover:bg-[#4499B7] hover:text-white' onMouseEnter={() => { toggleOperations(index) }} onMouseLeave={() => { toggleOperations(index) }}>
+                                            <div className='flex py-1 px-2 hover:bg-[#4499B7] hover:text-white'>
                                                 <div><p className='line-clamp-1 hover:text-white'>{dt.category_name}: {dt.concern_desc}</p></div>
-                                                {operations[index] && (
-                                                    <div className='mr-2 grid grid-cols-2 gap-4'>
-
-                                                        <div><i class="text-white fa-solid fa-box-archive"></i></div>
-                                                        <div><i class="text-white fa-solid fa-trash"></i></div>
-
-
-
-
+                                                {dt.status === 3 && (
+                                                    <div>
+                                                        <details className="dropdown dropdown-end">
+                                                            <summary className="fa-solid fa-gear"></summary>
+                                                            <ul className=" shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                                                <li><a><i class="fa-solid fa-box-archive"></i> Archive</a></li>
+                                                                <li><a><i class="fa-solid fa-trash"></i> Delete</a></li>
+                                                            </ul>
+                                                        </details>
                                                     </div>)}
                                             </div>
                                         </div>
@@ -89,42 +79,31 @@ const Tsekbot2 = () => {
                                 } else {
                                     return (
                                         <div key={index}>
-
-
-                                            <div className='flex py-1 px-2 hover:bg-[#4499B7] hover:text-white' onMouseEnter={() => { toggleOperations(index) }} onMouseLeave={() => { toggleOperations(index) }}>
+                                            <div className='flex py-1 px-2 hover:bg-[#4499B7] hover:text-white'>
                                                 <div><p className='line-clamp-1 hover:text-white'>{dt.category_name}: {dt.concern_desc}</p></div>
-                                                {operations[index] && (
-                                                    <div className='mr-2 grid grid-cols-2 gap-4'>
-
-                                                        <div><i class="text-white fa-solid fa-box-archive"></i></div>
-                                                        <div><i class="text-white fa-solid fa-trash"></i></div>
-
-
-
-
+                                                {dt.status === 3 && (
+                                                    <div>
+                                                        <details className="dropdown dropdown-end">
+                                                            <summary className="fa-solid fa-gear"></summary>
+                                                            <ul className=" shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                                                <li><a><i class="fa-solid fa-box-archive"></i> Archive</a></li>
+                                                                <li><a><i class="fa-solid fa-trash"></i> Delete</a></li>
+                                                            </ul>
+                                                        </details>
                                                     </div>)}
                                             </div>
-
-
                                         </div>
                                     );
                                 }
                             })}
                         </div>
-
-
                     </div>
                     <div class="w-2/3 h-screen p-4 bg-red-200">
 
                         rgburgb
                     </div>
                 </div>
-
-
             </section>
-
-
-
         </>
     )
 }

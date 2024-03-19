@@ -60,7 +60,7 @@ const Request_Agent = () => {
             .then(res => {
                 if (res.data) {
                     if (res.data.result > 0) {
-                        document.getElementById('my_modal_3').showModal();
+                        document.getElementById('warning_modal').showModal();
                     } else {
                         document.getElementById('request_agent').showModal();
                     }
@@ -75,11 +75,9 @@ const Request_Agent = () => {
 
     return (
         <>
-
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
             {/* <button className="btn btn-primary" onClick={() => document.getElementById('request_agent').showModal()}>Request Agent</button> */}
             <button className="btn btn-primary" onClick={handleRequestAgent}>Request Agent</button>
-
             <dialog id="request_agent" className="modal">
                 <div className="modal-box">
                     <form method="dialog">
@@ -88,15 +86,12 @@ const Request_Agent = () => {
                     </form>
                     <h3 className="font-bold text-lg">Request Agent</h3>
                     <hr className="my-2  border-[#C6CDCD]" />
-
                     <form onSubmit={handleSubmit} id="request_agent_form">
                         <div class="border-b border-gray-900/10 pb-12">
                             <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
-
                                 <div class="col-span-full">
                                     <label for="concern" class="block text-sm font-medium leading-6 text-gray-900">Type of Concern :</label>
                                     <div class="mt-2">
-
                                         <select id="concern" name="concern" autocomplete="concern-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                             onChange={(e) => setValues({ ...values, category: e.target.value })}
                                             value={values.category}
@@ -107,29 +102,22 @@ const Request_Agent = () => {
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="col-span-full">
                                     <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description :</label>
                                     <div class="mt-2">
                                         <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required onChange={(e) =>
                                             setValues({ ...values, description: e.target.value })
                                         }></textarea>
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
-
                         <div class="mt-4 flex items-center justify-end gap-x-6">
                             <button type="submit" class="rounded-md bg-[#0098B7] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0098B7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4499B7]">Submit</button>
                         </div>
                     </form>
                 </div>
             </dialog>
-
-
             {toastVisible && (
                 <div className="toast toast-top toast-end">
                     <div className="alert alert-info">
@@ -137,22 +125,37 @@ const Request_Agent = () => {
                     </div>
                 </div>
             )}
-
-
-            <dialog id="my_modal_3" className="modal">
+            <dialog id="warning_modal" className="modal">
                 <div className="modal-box">
                     <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
+
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Warning Message there is still ongoing Concern</p>
+                    <div class="p-4 md:p-5 text-center">
+                        <svg
+                            className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200 animate-spin-slow"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            />
+                        </svg>
+                        <div>
+                            <h3 className="mb-4 text-lg font-bold text-center mx-auto text-red-900 dark:text-gray-400">
+                                Warning
+                            </h3>
+                            <p className='text-sm'>You still have a pending agent request, please complete this transaction first before proceeding into making a new one</p>
+                        </div>
+                    </div>
                 </div>
             </dialog>
-
-
-
-
         </>
     )
 }
